@@ -1,32 +1,58 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
-import AppHeader from '../components/AppHeader';
+import { Link } from "@/i18n/routing";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+import { useTranslations } from "next-intl";
+import AppHeader from "../../components/AppHeader";
+import { countries } from "countries-list";
 
-export default function AccountPage() {
+// Helper function to convert country code to flag emoji
+const getFlagEmoji = (countryCode: string): string => {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split("")
+    .map((char) => 127397 + char.charCodeAt(0));
+  return String.fromCodePoint(...codePoints);
+};
+
+export default function AccountPage({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
   const router = useRouter();
+  const t = useTranslations("createAccount");
   const [form, setForm] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    degreeLevel: '',
-    country: '',
-    focus: '',
+    fullName: "",
+    email: "",
+    password: "",
+    degreeLevel: "",
+    country: "",
+    focus: "",
   });
 
-  const handleChange = (
-    field: keyof typeof form,
-    value: string,
-  ) => {
+  const handleChange = (field: keyof typeof form, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    router.push('/profile');
+    router.push(`/${locale}/profile`);
   };
+
+  // Separate African countries to prioritize them at the top
+  const africanCountries = Object.entries(countries)
+    .filter(([_, data]) => data.continent === "AF")
+    .sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+  // Get all other countries
+  const otherCountries = Object.entries(countries)
+    .filter(([_, data]) => data.continent !== "AF")
+    .sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+  // Combine with African countries first
+  const allCountries = [...africanCountries, ...otherCountries];
 
   return (
     <div className="min-h-screen bg-[#FAF8F4] text-[#14213D]">
@@ -59,7 +85,9 @@ export default function AccountPage() {
                   </span>
                   <input
                     value={form.fullName}
-                    onChange={(event) => handleChange('fullName', event.target.value)}
+                    onChange={(event) =>
+                      handleChange("fullName", event.target.value)
+                    }
                     className="w-full rounded-xl border border-[#E8E3DA] bg-[#F9F7F3] px-4 py-3 text-sm text-[#14213D] outline-none transition focus:border-[#14213D]"
                     placeholder="Your full name"
                   />
@@ -72,7 +100,9 @@ export default function AccountPage() {
                   <input
                     type="email"
                     value={form.email}
-                    onChange={(event) => handleChange('email', event.target.value)}
+                    onChange={(event) =>
+                      handleChange("email", event.target.value)
+                    }
                     className="w-full rounded-xl border border-[#E8E3DA] bg-[#F9F7F3] px-4 py-3 text-sm text-[#14213D] outline-none transition focus:border-[#14213D]"
                     placeholder="name@example.com"
                   />
@@ -87,7 +117,9 @@ export default function AccountPage() {
                   <input
                     type="password"
                     value={form.password}
-                    onChange={(event) => handleChange('password', event.target.value)}
+                    onChange={(event) =>
+                      handleChange("password", event.target.value)
+                    }
                     className="w-full rounded-xl border border-[#E8E3DA] bg-[#F9F7F3] px-4 py-3 text-sm text-[#14213D] outline-none transition focus:border-[#14213D]"
                     placeholder="Create a secure password"
                   />
@@ -95,18 +127,24 @@ export default function AccountPage() {
 
                 <label className="block">
                   <span className="mb-2 block text-sm font-medium text-[#14213D]">
-                    Degree level
+                    {t("degreeLevel")}
                   </span>
                   <select
                     value={form.degreeLevel}
-                    onChange={(event) => handleChange('degreeLevel', event.target.value)}
+                    onChange={(event) =>
+                      handleChange("degreeLevel", event.target.value)
+                    }
                     className="w-full rounded-xl border border-[#E8E3DA] bg-[#F9F7F3] px-4 py-3 text-sm text-[#14213D] outline-none transition focus:border-[#14213D]"
                   >
-                    <option value="" disabled>Select your degree level</option>
-                    <option>Undergraduate</option>
-                    <option>Master&apos;s student</option>
-                    <option>PhD student</option>
-                    <option>Early career researcher</option>
+                    <option value="" disabled>
+                      {t("selectDegreeLevel")}
+                    </option>
+                    <option value="undergraduate">{t("undergraduate")}</option>
+                    <option value="masters">{t("mastersStudent")}</option>
+                    <option value="phd">{t("phdStudent")}</option>
+                    <option value="early-career">
+                      {t("earlyCareerResearcher")}
+                    </option>
                   </select>
                 </label>
               </div>
@@ -114,14 +152,33 @@ export default function AccountPage() {
               <div className="grid md:grid-cols-2 gap-5">
                 <label className="block">
                   <span className="mb-2 block text-sm font-medium text-[#14213D]">
-                    Country
+                    {t("country")}
                   </span>
-                  <input
+                  <select
                     value={form.country}
-                    onChange={(event) => handleChange('country', event.target.value)}
+                    onChange={(event) =>
+                      handleChange("country", event.target.value)
+                    }
                     className="w-full rounded-xl border border-[#E8E3DA] bg-[#F9F7F3] px-4 py-3 text-sm text-[#14213D] outline-none transition focus:border-[#14213D]"
-                    placeholder="Your country"
-                  />
+                  >
+                    <option value="">{t("selectCountry")}</option>
+                    {/* African countries section */}
+                    <optgroup label="🌍 African Countries">
+                      {africanCountries.map(([code, data]) => (
+                        <option key={code} value={code.toLowerCase()}>
+                          {getFlagEmoji(code)} {data.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                    {/* Other countries section */}
+                    <optgroup label="Other Countries">
+                      {otherCountries.map(([code, data]) => (
+                        <option key={code} value={code.toLowerCase()}>
+                          {getFlagEmoji(code)} {data.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
                 </label>
 
                 <label className="block">
@@ -130,7 +187,9 @@ export default function AccountPage() {
                   </span>
                   <input
                     value={form.focus}
-                    onChange={(event) => handleChange('focus', event.target.value)}
+                    onChange={(event) =>
+                      handleChange("focus", event.target.value)
+                    }
                     className="w-full rounded-xl border border-[#E8E3DA] bg-[#F9F7F3] px-4 py-3 text-sm text-[#14213D] outline-none transition focus:border-[#14213D]"
                     placeholder="Engineering, climate policy, design..."
                   />
@@ -139,10 +198,10 @@ export default function AccountPage() {
 
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
                 <Link
-                  href="/"
+                  href={`/${locale}`}
                   className="text-sm font-medium text-[#4B5563] hover:text-[#14213D]"
                 >
-                  Back to home
+                  {t("backToHome")}
                 </Link>
 
                 <button
@@ -167,19 +226,27 @@ export default function AccountPage() {
                 <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#E8F5EE] text-[#1F9D6B] text-[10px] font-bold">
                   ✓
                 </span>
-                <span>Personalized scholarship matches based on your academic profile.</span>
+                <span>
+                  Personalized scholarship matches based on your academic
+                  profile.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#E8F5EE] text-[#1F9D6B] text-[10px] font-bold">
                   ✓
                 </span>
-                <span>Deadline tracking with reminders for each application stage.</span>
+                <span>
+                  Deadline tracking with reminders for each application stage.
+                </span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#E8F5EE] text-[#1F9D6B] text-[10px] font-bold">
                   ✓
                 </span>
-                <span>Application workflows that keep documents, letters, and essays organized.</span>
+                <span>
+                  Application workflows that keep documents, letters, and essays
+                  organized.
+                </span>
               </li>
             </ul>
 
@@ -187,11 +254,15 @@ export default function AccountPage() {
               <p className="text-xs uppercase tracking-[0.18em] text-[#D4DAEA]">
                 Starter fit
               </p>
-              <div className="mt-4 text-3xl font-semibold" style={{ fontFamily: "'Newsreader', Georgia, serif" }}>
+              <div
+                className="mt-4 text-3xl font-semibold"
+                style={{ fontFamily: "'Newsreader', Georgia, serif" }}
+              >
                 14 curated matches
               </div>
               <p className="mt-2 text-sm text-[#D4DAEA]">
-                Based on your profile, you are likely to qualify for a strong mix of funding opportunities.
+                Based on your profile, you are likely to qualify for a strong
+                mix of funding opportunities.
               </p>
             </div>
           </aside>

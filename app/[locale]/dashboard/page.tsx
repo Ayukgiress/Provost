@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useState } from "react";
-import MatchCard from "../components/MatchCard";
-import WorkspaceShell from "../components/WorkspaceShell";
-import { IconCalendar, IconWarn, IconGlobe, IconUser } from "../components/icons";
+import MatchCard from "../../components/MatchCard";
+import WorkspaceShell from "../../components/WorkspaceShell";
+import { IconCalendar, IconWarn, IconGlobe, IconUser } from "../../components/icons";
 
 type SortKey = "All" | "Recommended" | "Matchability" | "Deadline" | "Tracking";
 type FilterKey = "Shortlist" | "Saved" | "Tracking";

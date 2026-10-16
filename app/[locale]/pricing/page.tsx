@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import WorkspaceShell from "../components/WorkspaceShell";
+import { Link } from "@/i18n/routing";
+import WorkspaceShell from "../../components/WorkspaceShell";
 
 const plans = [
   {

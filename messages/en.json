@@ -1,0 +1,42 @@
+{
+  "createAccount": {
+    "title": "Create your Provost account",
+    "subtitle": "Set up your profile once and let Provost surface the right scholarships, deadlines, and application support.",
+    "startHere": "Start here · 01",
+    "fullName": "Full name",
+    "emailAddress": "Email address",
+    "password": "Password",
+    "degreeLevel": "Degree level",
+    "selectDegreeLevel": "Select your degree level",
+    "undergraduate": "Undergraduate",
+    "mastersStudent": "Master's student",
+    "phdStudent": "PhD student",
+    "earlyCareerResearcher": "Early career researcher",
+    "country": "Country",
+    "selectCountry": "Select your country",
+    "countries": {
+      "us": "United States",
+      "gb": "United Kingdom",
+      "fr": "France",
+      "de": "Germany",
+      "ca": "Canada",
+      "au": "Australia",
+      "jp": "Japan",
+      "in": "India",
+      "br": "Brazil",
+      "other": "Other"
+    },
+    "studyFocus": "Study focus",
+    "studyFocusPlaceholder": "Engineering, climate policy, design...",
+    "backToHome": "Back to home",
+    "createAccountButton": "Create account",
+    "whyUseProvost": "Why students use Provost",
+    "feature1": "Personalized scholarship matches based on your academic profile.",
+    "feature2": "Deadline tracking with reminders for each application stage.",
+    "feature3": "Application workflows that keep documents, letters, and essays organized.",
+    "starterFit": "Starter fit",
+    "starterFitDescription": "Based on your profile, you are likely to qualify for a strong mix of funding opportunities.",
+    "curatedMatches": "14 curated matches",
+    "language": "Language"
+  }
+}

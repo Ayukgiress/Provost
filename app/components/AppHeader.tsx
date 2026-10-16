@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { IconSearchSm } from "./icons";
 
 /** Shared, compact header for secondary product pages. */

@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import WorkspaceShell from "../components/WorkspaceShell";
-import FitScoreCircle from "../components/FitScoreCircle";
-import { IconCalendar, IconChevron } from "../components/icons";
+import { Link } from "@/i18n/routing";
+import WorkspaceShell from "../../components/WorkspaceShell";
+import FitScoreCircle from "../../components/FitScoreCircle";
+import { IconCalendar, IconChevron } from "../../components/icons";
 
 /* ------------------------- Inline small icons ---------------------------- */
 

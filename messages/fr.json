@@ -1,0 +1,42 @@
+{
+  "createAccount": {
+    "title": "Créez votre compte Provost",
+    "subtitle": "Configurez votre profil une fois et laissez Provost trouver les bourses, les dates limites et l'assistance de demande adaptés à vos besoins.",
+    "startHere": "Commencez ici · 01",
+    "fullName": "Nom complet",
+    "emailAddress": "Adresse e-mail",
+    "password": "Mot de passe",
+    "degreeLevel": "Niveau d'études",
+    "selectDegreeLevel": "Sélectionnez votre niveau d'études",
+    "undergraduate": "Premier cycle",
+    "mastersStudent": "Étudiant en master",
+    "phdStudent": "Étudiant en doctorat",
+    "earlyCareerResearcher": "Chercheur en début de carrière",
+    "country": "Pays",
+    "selectCountry": "Sélectionnez votre pays",
+    "countries": {
+      "us": "États-Unis",
+      "gb": "Royaume-Uni",
+      "fr": "France",
+      "de": "Allemagne",
+      "ca": "Canada",
+      "au": "Australie",
+      "jp": "Japon",
+      "in": "Inde",
+      "br": "Brésil",
+      "other": "Autre"
+    },
+    "studyFocus": "Domaine d'études",
+    "studyFocusPlaceholder": "Ingénierie, politique climatique, design...",
+    "backToHome": "Retour à l'accueil",
+    "createAccountButton": "Créer un compte",
+    "whyUseProvost": "Pourquoi les étudiants utilisent-ils Provost ?",
+    "feature1": "Des correspondances de bourses personnalisées basées sur votre profil académique.",
+    "feature2": "Suivi des dates limites avec des rappels pour chaque étape de votre demande.",
+    "feature3": "Des flux de travail de demande qui gardent vos documents, lettres et essais organisés.",
+    "starterFit": "Adéquation initiale",
+    "starterFitDescription": "Selon votre profil, vous êtes susceptible de remplir les conditions pour une bonne combinaison d'opportunités de financement.",
+    "curatedMatches": "14 correspondances sélectionnées",
+    "language": "Langue"
+  }
+}
